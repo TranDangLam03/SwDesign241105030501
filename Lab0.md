@@ -1,1 +1,1 @@
-![Diagram](http://www.plantuml.com/plantuml/png/encoded-diagram-text)
+https://www.planttext.com/api/plantuml/png/UhzxlqDnIM9HIMbk3bToJc9niK9eSMgHGZMNWe92S4bHPbwwGbvYRYeIDpKtCJC7nC_9Jy_Cqz24ClDBIu3iMYw7rBmKa6400000__y30000

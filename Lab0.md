@@ -1,2 +1,4 @@
+# Biểu đồ lớp:
 ![Biểu đồ Lớp](https://www.planttext.com/api/plantuml/png/UhzxlqDnIM9HIMbk3bToJc9niK9eSMgHGZMNWe92S4bHPbwwGbvYRYeIDpKtCJC7nC_9Jy_Cqz24ClDBIu3iMYweAG55-IcboIKe1XL0nFoWvgNaboRbf095CvF1_CIKb91yPw1R8EQ0tQ5agAIWgwkWPA2dfwK4DzHAeQ2qA3aZiJYrcCiXDIy5w7W00000__y30000)
+# Biểu đổ ca sử dụng:
 ![Biểu đồ ca sử dụng](https://www.planttext.com/api/plantuml/png/UhzxlqDnIM9HIMbk3bTYSab-aO9pQN59Vcvg4PJhc9ARcSV51HDLqDMrKz1mAielBqvL22ZAJobDBYdMH9CEo4bCJbNmBqf9BKANyatC1kfBhCnDpIlHvE82cmwJoKjCHpOJIIuiCxKSOXvGt24rBmNeN000003__mC0)

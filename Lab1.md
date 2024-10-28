@@ -1,5 +1,5 @@
 1. Phân tích Kiến trúc
-- Kiến trúc đề xuất: dựa trên các yêu cầu và mô tả của bài toán, kiến trúc phù hợp cho hệ thống trả lương. có thể áp dụng kiến trúc Client-Server 3 tầng để đảm bảo tính mở rộng, hiệu suất và bảo mật
+- Kiến trúc đề xuất: dựa trên các yêu cầu và mô tả của bài toán, kiến trúc phù hợp cho hệ thống trả lương. Có thể áp dụng kiến trúc Client-Server 3 tầng để đảm bảo tính mở rộng, hiệu suất và bảo mật
 - Lý do chọn và ý nghĩa từng thành phần
   + Client Layer: Cho phép nhân viên tương tác với hệ thống. Các hoạt động này sẽ được giới hạn để đảm bảo tính bảo mật, ví dụ: chỉ có thể xem và cập nhật bảng chấm công của mình.
   + Application Layer: Chịu trách nhiệm xử lý logic nghiệp vụ và các yêu cầu từ Client Layer. Các yêu cầu từ Client Layer sẽ được xử lý tại đây trước khi kết nối với Database Layer để đảm bảo tính toàn vẹn dữ liệu.

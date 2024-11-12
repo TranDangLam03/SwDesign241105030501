@@ -46,9 +46,11 @@
 2. Code Java mô phỏng ca sử dụng Maintain Timecard.
 
 package MaintainTimecard;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
 class Timecard {
 	private String employeeId;
 	private String startDate;

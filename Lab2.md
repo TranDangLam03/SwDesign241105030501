@@ -59,11 +59,13 @@ class Timecard {
 	private boolean submitted = false;
 	private Map<String, Integer> hoursWorked = new HashMap<>();
 	private String submittedDate;
+
 	public Timecard(String employeeId, String startDate, String endDate) {
 		this.employeeId = employeeId;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+
 
 	public void addHours(String chargeNumber, int hours) throws Exception {
 		if (submitted) {
@@ -74,6 +76,8 @@ class Timecard {
 		}
 		hoursWorked.put(chargeNumber, hoursWorked.getOrDefault(chargeNumber, 0) + hours);
 	}
+
+
 	public void submitTimecard() throws Exception {
 		if (submitted) {
 			throw new Exception("Thẻ thời gian đã được gửi.");
@@ -82,7 +86,8 @@ class Timecard {
 		submittedDate = java.time.LocalDate.now().toString();
 		System.out.println("Timecard được gửi vào ngày: " + submittedDate);
 	}
- 
+
+
 	public void displayTimecard() {
 		System.out.println("Timecard cho ID nhân viên: " + employeeId);
 		System.out.println("Ngày bắt đầu: " + startDate + " | Ngày kết thúc: " + endDate);
@@ -92,11 +97,13 @@ class Timecard {
 			System.out.println(" - Số phí: " + entry.getKey() + ", Giờ: " + entry.getValue());
 		}
 	}
- 
+
+
 	public boolean isSubmitted() {
 		return submitted;
 	}
 }
+
 
 public class MaintainTimecard {
 	private static Scanner scanner = new Scanner(System.in);

@@ -43,3 +43,121 @@
        + PayrollSystem: Quản lý tính toán lương và thực hiện giao dịch.
        + EmployeeData: Lấy dữ liệu thanh toán của nhân viên.
        + BankTransaction: Tạo và xử lý giao dịch ngân hàng.
+2. Code Java mô phỏng ca sử dụng Maintain Timecard.
+package MaintainTimecard;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+class Timecard {
+	private String employeeId;
+	private String startDate;
+	private String endDate;
+	private boolean submitted = false;
+	private Map<String, Integer> hoursWorked = new HashMap<>();
+	private String submittedDate;
+
+	public Timecard(String employeeId, String startDate, String endDate) {
+		this.employeeId = employeeId;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+
+	public void addHours(String chargeNumber, int hours) throws Exception {
+		if (submitted) {
+			throw new Exception("Không thể thêm giờ: Timecard đã được gửi.");
+		}
+		if (hours > 24) {
+			throw new Exception("Mục nhập không hợp lệ: Không thể làm việc quá 24 giờ trong một ngày.");
+		}
+		hoursWorked.put(chargeNumber, hoursWorked.getOrDefault(chargeNumber, 0) + hours);
+	}
+
+
+	public void submitTimecard() throws Exception {
+		if (submitted) {
+			throw new Exception("Thẻ thời gian đã được gửi.");
+		}
+		submitted = true;
+		submittedDate = java.time.LocalDate.now().toString();
+		System.out.println("Timecard được gửi vào ngày: " + submittedDate);
+	}
+
+
+	public void displayTimecard() {
+		System.out.println("Timecard cho ID nhân viên: " + employeeId);
+		System.out.println("Ngày bắt đầu: " + startDate + " | Ngày kết thúc: " + endDate);
+		System.out.println("Đã gửi: " + (submitted ? "Yes, on " + submittedDate : "No"));
+		System.out.println("Số giờ đã làm việc: ");
+		for (Map.Entry<String, Integer> entry : hoursWorked.entrySet()) {
+			System.out.println(" - Số phí: " + entry.getKey() + ", Giờ: " + entry.getValue());
+		}
+	}
+
+
+	public boolean isSubmitted() {
+		return submitted;
+	}
+}
+
+
+public class MaintainTimecard {
+	private static Scanner scanner = new Scanner(System.in);
+
+	public static void main(String[] args) {
+		try {
+			System.out.print("Nhập ID nhân viên: ");
+			String employeeId = scanner.nextLine();
+			Timecard timecard = new Timecard(employeeId, "2024-11-01", "2024-11-07");
+
+			boolean running = true;
+			while (running) {
+				System.out.println("\n1. Xem Timecard\n2. Thêm giờ\n3.  Timecard\n4. Thoát");
+				System.out.print("Chọn một tùy chọn: ");
+				int choice = scanner.nextInt();
+				scanner.nextLine();
+
+				switch (choice) {
+				case 1:
+					timecard.displayTimecard();
+					break;
+				case 2:
+					if (timecard.isSubmitted()) {
+						System.out.println("Không thể sửa đổi: Timecard đã được gửi.");
+						break;
+					}
+					System.out.print("Nhập số phí: ");
+					String chargeNumber = scanner.nextLine();
+					System.out.print("Nhập số giờ đã làm việc: ");
+					int hours = scanner.nextInt();
+					scanner.nextLine();
+					try {
+						timecard.addHours(chargeNumber, hours);
+						System.out.println("Đã thêm giờ thành công.");
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
+				case 3:
+					try {
+						timecard.submitTimecard();
+						System.out.println("Timecard đã được gửi thành công.");
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
+				case 4:
+					running = false;
+					System.out.println("Thoát khỏi hệ thống.");
+					break;
+				default:
+					System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Lỗi: " + e.getMessage());
+		}
+	}
+}

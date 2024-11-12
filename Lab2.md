@@ -1,9 +1,45 @@
 1. Phân tích tất cả các ca sử dụng còn lại trong hệ thống Payroll System.
    * Phân tích ca sử dụng Create Administrative Report
-     - Sơ đồ lớp:
-
+     - Biểu đồ lớp
+       ![Diagram](https://www.planttext.com/api/plantuml/svg/R9112i8m44NtEKMMBTGBT268uauHFS7G3YMG9dKo2aKycGkFv1LCJ6i3RHR9y9Dv_qy-htUbmJbvWfwirfkwLKOv9c1B8bubchhZ6JjBB1z2XiLzXwMyC2dJHCKn4E-0lHpsAAAf4-avW2DgQmq7QwGHsg11RpPOPS6ZcBZ5IFD5ssdR8nwXnVoFtIkD1p3GJ4G7O_2CVaSXjQtyFDQ4Fh4qlLojvmbBINYzeUE1belP4z-s-6Ebh0YdgPOxq-nb6ZiNNm000F__0m00)
+       - Nhiệm vụ của từng lớp
+         + PayrollAdministrator: Yêu cầu hệ thống tạo báo cáo và quyết định lưu báo cáo.
+         + ReportController: Nhận yêu cầu tạo báo cáo, gọi lớp xử lý báo cáo và lớp lưu trữ nếu cần.
+         + AdministrativeReport: Lưu trữ dữ liệu về loại báo cáo và thời gian báo cáo.
+         + FileManager: Chịu trách nhiệm lưu báo cáo vào hệ thống.
    * Phân tích ca sử dụng Create Employee Report
+     - Biểu đồ lớp
+       ![Diagram](https://www.planttext.com/api/plantuml/svg/UhzxVt9EOd6nWcjkGKv-PMeg5oetABKWlwX4ePfB0GHAAWjIhHI2Iueoyz8X8iKbYKKbBeabG64G2H5CpKj14gg56WanoZa_hwGeFoSdjGWgx9QPa-gRc9UO3XJXWbche6k7eLx1Ig4ejR0qjRW48gEXoOMX1AWDpULM2ib5gK1duDM3v0QWXkB4CeHo00000F__0m00)
+     - Nhiệm vụ của từng lớp
+       + Employee: Tạo yêu cầu báo cáo.
+       + ReportController: Xử lý yêu cầu từ nhân viên, tương tác với lớp báo cáo và lưu trữ nếu cần.
+       + EmployeeReport: Lưu trữ thông tin về loại và thời gian báo cáo của nhân viên.
+       + FileManager: Xử lý lưu trữ báo cáo.
    * Phân tích ca sử dụng Login
+     - Biểu đồ lớp
+       ![Diagram](https://www.planttext.com/api/plantuml/svg/UhzxVt9EOd6nGcXnQX4NXEbOMfAHcbUIcPnOafcVvvoVLrAKdvEJMgHGpQK00ZdvwPbv6gL03Nc9kQaw2WL0JUNvHIcQNBLS2CE2KukBWTfXcefB4ejAe69WlI3LN2252hfskAsqWjgcoOLJ2L0xidrMg5PfSW40003__mC0)
+     - Nhiệm vụ của từng lớp
+       + User: Nhập thông tin đăng nhập.
+       + AuthenticationController: Xác thực thông tin đăng nhập và khởi tạo phiên làm việc.
+       + UserSession: Quản lý phiên đăng nhập của người dùng.
    * Phân tích ca sử dụng Maintain Employee Information
+     - Biểu đồ lớp
+       ![Diagram](https://www.planttext.com/api/plantuml/svg/UhzxVt9EOd6nGa1YPL5-JevZIcvcNcPnIL5YINuH5qJADRSW9xyoDTKtCIynFRL8ePfB0GGIKr9WCXgQ4A7IWfJ4abHqqPJKd5GKqLeqWxcuiDcke6k7ORMLGYwOXMGOkX8aNI3b-IcPQPKkgIM9cJd5GDK00000__y30000)
+     - Nhiệm vụ của từng lớp
+       + PayrollAdministrator: Yêu cầu hệ thống quản lý thông tin nhân viên.
+       + EmployeeManager: Thực hiện thêm, cập nhật hoặc xóa nhân viên.
+       + Employee: Đối tượng lưu trữ thông tin nhân viên.
    * Phân tích ca sử dụng Maintain Purchase Order
+     - Biểu đồ lớp
+       ![Diagram](https://www.planttext.com/api/plantuml/svg/UhzxVt9EOd6nWcjkGKv-PMeg5uGRK5gKd95OdEfVb99Qf53DfG02AOabgLOABa0Ima_CpI_DAx5IICl9JopXgiMcrJa_hwGeFoS7OKXoKIhG0B2aHYhKKayN7OLya0ZGx4HDe4bSCESewDhXDD0AnInDBbpgq8q0QYnEB8Dh0m000F__0m00)
+     - Nhiệm vụ của từng lớp
+       + Employee: Tạo yêu cầu đặt hàng.
+       + PurchaseOrderController: Xử lý yêu cầu tạo đơn hàng mới.
+       + PurchaseOrder: Lưu thông tin đơn hàng.
    * Phân tích ca sử dụng Ca sử dụng Run Payroll
+     - Biểu đồ lớp
+       ![Diagram](https://www.planttext.com/api/plantuml/svg/P8vD2i9038NtSueiMz0BTE52wbxG2uGGP71-IXA5eNWo5nx9A-YWOgjPXPVttfVxzKO1LM6BHN88kwB6qRsqJHn2Bimz6iBeeCw1xMcDdAndGn-qQTtbxLzZEku5aoAPp-aJ8M4qdXmQZFcKR058L9VQu6OFm78rftSWREBvp5_iN-ANty4WcLXrocxT0m00__y30000)
+     - Nhiệm vụ của từng lớp
+       + PayrollSystem: Quản lý tính toán lương và thực hiện giao dịch.
+       + EmployeeData: Lấy dữ liệu thanh toán của nhân viên.
+       + BankTransaction: Tạo và xử lý giao dịch ngân hàng.

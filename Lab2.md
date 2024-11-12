@@ -44,12 +44,11 @@
        + EmployeeData: Lấy dữ liệu thanh toán của nhân viên.
        + BankTransaction: Tạo và xử lý giao dịch ngân hàng.
 2. Code Java mô phỏng ca sử dụng Maintain Timecard.
-package MaintainTimecard;
 
+package MaintainTimecard;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
 class Timecard {
 	private String employeeId;
 	private String startDate;
@@ -57,14 +56,11 @@ class Timecard {
 	private boolean submitted = false;
 	private Map<String, Integer> hoursWorked = new HashMap<>();
 	private String submittedDate;
-
 	public Timecard(String employeeId, String startDate, String endDate) {
 		this.employeeId = employeeId;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
-
-
 	public void addHours(String chargeNumber, int hours) throws Exception {
 		if (submitted) {
 			throw new Exception("Không thể thêm giờ: Timecard đã được gửi.");
@@ -74,8 +70,6 @@ class Timecard {
 		}
 		hoursWorked.put(chargeNumber, hoursWorked.getOrDefault(chargeNumber, 0) + hours);
 	}
-
-
 	public void submitTimecard() throws Exception {
 		if (submitted) {
 			throw new Exception("Thẻ thời gian đã được gửi.");
@@ -84,8 +78,6 @@ class Timecard {
 		submittedDate = java.time.LocalDate.now().toString();
 		System.out.println("Timecard được gửi vào ngày: " + submittedDate);
 	}
-
-
 	public void displayTimecard() {
 		System.out.println("Timecard cho ID nhân viên: " + employeeId);
 		System.out.println("Ngày bắt đầu: " + startDate + " | Ngày kết thúc: " + endDate);
@@ -95,14 +87,10 @@ class Timecard {
 			System.out.println(" - Số phí: " + entry.getKey() + ", Giờ: " + entry.getValue());
 		}
 	}
-
-
 	public boolean isSubmitted() {
 		return submitted;
 	}
 }
-
-
 public class MaintainTimecard {
 	private static Scanner scanner = new Scanner(System.in);
 

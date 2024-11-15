@@ -36,7 +36,7 @@
      - PayrollController:
        + Thành phần này đại diện cho bộ điều khiển bảng lương và tương tác với ProjectManagementDatabase để lấy dữ liệu dự án. Thông tin này cần thiết để đảm bảo
        tính toán đúng chi phí và mã thanh toán khi xử lý bảng lương.
-     - EmployeeApplication (EA):
+     - EmployeeApplication:
        + Ứng dụng của nhân viên sử dụng dữ liệu từ ProjectManagementDatabase cho mục đích chấm công, giúp ghi lại thời gian làm việc của nhân viên trên các dự án cụ
        thể và các mã thanh toán liên quan.
      - IProjectManagementDatabase:

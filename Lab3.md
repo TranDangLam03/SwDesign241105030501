@@ -18,9 +18,35 @@
    * Biểu đồ ngữ cảnh của BankSystem
      
    * Giải thích
-     - EmployeeApplication (EA):
-       + Đại diện cho các ứng dụng của nhân viên, tương tác với PrintService để yêu cầu in báo cáo hoặc các tài liệu liên quan đến bảng lương.
-     - PayrollControllerProcess (PC):
-       + Được triển khai trên máy chủ bảng lương, quá trình này tương tác với PrintService để in tài liệu bảng lương khi cần thiết.
+     - PayrollController:
+       + Là thành phần điều khiển bảng lương, nó gửi yêu cầu đến IPrintService để in tài liệu bảng lương (paycheck) cho nhân viên nếu phương thức thanh toán là
+         nhận trực tiếp hoặc qua thư.
+     - EmployeeApplication:
+       + Là ứng dụng của nhân viên, nơi nhân viên có thể yêu cầu in các báo cáo như số giờ làm việc hoặc các thông tin khác liên quan.
+     - IPrintService:
+       + Là một giao diện đại diện cho các dịch vụ in, định nghĩa phương thức print, nhận đối số là một tài liệu (document) để in.
+       + IPrintService thực hiện vai trò kết nối giữa các thành phần và hệ thống con PrintService, giống như cách IBankSystem kết nối với BankSystem.
      - PrintService:
-       + Hệ thống con cung cấp các chức năng in ấn, xử lý yêu cầu in từ cả EmployeeApplication và PayrollControllerProcess.
+       + Là hệ thống con thực tế thực hiện các lệnh in ấn. PrintService nhận tài liệu và thực hiện quy trình in tương ứng.
+     - Document:
+       + Là thực thể đại diện cho tài liệu cần in, có thể là bảng lương hoặc báo cáo tùy theo yêu cầu từ PayrollController hoặc EmployeeApplication.
+   * Biểu đồ ngữ cảnh của ProjectManagementDatabase
+     
+   * Giải thích
+     - PayrollController:
+       + Thành phần này đại diện cho bộ điều khiển bảng lương và tương tác với ProjectManagementDatabase để lấy dữ liệu dự án. Thông tin này cần thiết để đảm bảo
+       tính toán đúng chi phí và mã thanh toán khi xử lý bảng lương.
+     - EmployeeApplication (EA):
+       + Ứng dụng của nhân viên sử dụng dữ liệu từ ProjectManagementDatabase cho mục đích chấm công, giúp ghi lại thời gian làm việc của nhân viên trên các dự án cụ
+       thể và các mã thanh toán liên quan.
+     - IProjectManagementDatabase:
+       + Là giao diện định nghĩa các chức năng truy xuất thông tin dự án của hệ thống. Giao diện này cung cấp phương thức getProjectData, nhận projectID và trả về
+       thông tin dự án cần thiết để hỗ trợ quá trình tính toán của các thành phần khác trong hệ thống.
+       + Giao diện này đóng vai trò làm cầu nối, cho phép các thành phần khác như PayrollController và EmployeeApplication truy cập dữ liệu dự án một cách gián tiếp
+       thông qua ProjectManagementDatabase.
+     - ProjectManagementDatabase:
+       + Là hệ thống con thực hiện các chức năng truy xuất dữ liệu dự án thực tế. ProjectManagementDatabase nhận yêu cầu từ IProjectManagementDatabase, xử lý các
+       truy vấn và trả về thông tin cần thiết cho Project.
+     - Project:
+       + Là thực thể đại diện cho thông tin dự án, chứa các chi tiết cần thiết về mã dự án, tên dự án, và các thông tin liên quan khác. Dữ liệu này được trả về qua
+       IProjectManagementDatabase cho các thành phần yêu cầu như PayrollController và EmployeeApplication.

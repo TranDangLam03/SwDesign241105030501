@@ -13,7 +13,7 @@
        printPaycheck thông qua giao diện IPrintService. Yêu cầu này bao gồm:
        + Paycheck: Chứa thông tin chi tiết về phiếu lương của nhân viên, bao gồm số tiền và thông tin cá nhân.
        + PrintInformation: Chứa thông tin về định dạng và các yêu cầu in ấn, như kiểu giấy, số lượng bản in.
-   - IPrintService (Giao diện dịch vụ in ấn): PayrollController tương tác với IPrintService để thực hiện yêu cầu in phiếu lương. Giao diện này giúp
+     - IPrintService (Giao diện dịch vụ in ấn): PayrollController tương tác với IPrintService để thực hiện yêu cầu in phiếu lương. Giao diện này giúp
         PayrollController không cần biết chi tiết về cách PrintService thực hiện in ấn, mà chỉ cần gọi phương thức printPaycheck.
      - PrintService (Hệ thống con dịch vụ in ấn): PrintService là hệ thống con chịu trách nhiệm xử lý yêu cầu in phiếu lương. PrintService nhận thông tin từ
        IPrintService và thực hiện in phiếu lương dựa trên dữ liệu trong Paycheck và PrintInformation.

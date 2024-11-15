@@ -50,3 +50,8 @@
      - Project:
        + Là thực thể đại diện cho thông tin dự án, chứa các chi tiết cần thiết về mã dự án, tên dự án, và các thông tin liên quan khác. Dữ liệu này được trả về qua
        IProjectManagementDatabase cho các thành phần yêu cầu như PayrollController và EmployeeApplication.
+2. Analysis class to design element map
+
+3. Design element to owning package map
+
+4. Architectural layers and their dependencies

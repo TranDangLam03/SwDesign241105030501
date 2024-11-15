@@ -2,21 +2,25 @@
    * Biểu đồ ngữ cảnh của BankSystem
      
    * Giải thích
-     - PayrollController có thể tương tác với nhiều hệ thống khác nhau thông qua các giao diện, như IBankSystem ở đây, giúp hệ thống Payroll System dễ dàng mở rộng
-       hoặc thay đổi hệ thống ngân hàng mà không ảnh hưởng đến chức năng chính.
-     - BankSystem là một hệ thống con xử lý việc chuyển khoản và xác nhận lại kết quả về cho PayrollController nếu có quy trình kiểm tra.
-     - Paycheck và BankInformation là các dữ liệu đầu vào quan trọng để đảm bảo giao dịch được thực hiện chính xác.
+     - PayrollController:
+       + Đóng vai trò là thành phần điều khiển, thực hiện chức năng chạy hệ thống trả lương (run payroll) và gửi yêu cầu tới hệ thống ngân hàng để thực hiện các
+         khoản thanh toán.
+       + Tương tác với IBankSystem qua phương thức deposit, trong đó hệ thống gửi thông tin lương (Paycheck) đến ngân hàng đích (BankInformation).
+     - IBankSystem:
+       + Là một interface (giao diện) đại diện cho các dịch vụ ngân hàng, cung cấp phương thức deposit, được sử dụng để xử lý việc gửi tiền vào tài khoản ngân hàng.
+       + IBankSystem định nghĩa phương thức deposit với các tham số là thông tin tiền lương (Paycheck) và thông tin ngân hàng (BankInformation).
+     - BankSystem:
+       + Được xác định là một proxy của hệ thống con, thay mặt cho IBankSystem, nó triển khai phương thức deposit để thực hiện các thao tác gửi tiền thực tế.
+       + BankSystem liên kết đến các thực thể Paycheck và BankInformation, xử lý thông tin cần thiết để thực hiện các giao dịch.
+     - Paycheck và BankInformation:
+       + Paycheck: Là một thực thể đại diện cho thông tin về lương của nhân viên, chứa các dữ liệu cần thiết để xử lý thanh toán.
+       + BankInformation: Là thực thể chứa thông tin về tài khoản ngân hàng của người nhận.
    * Biểu đồ ngữ cảnh của BankSystem
      
    * Giải thích
-     - PayrollController: Đây là thành phần điều khiển chính trong hệ thống Payroll System. PayrollController gửi yêu cầu in phiếu lương bằng cách gọi phương thức
-       printPaycheck thông qua giao diện IPrintService. Yêu cầu này bao gồm:
-       + Paycheck: Chứa thông tin chi tiết về phiếu lương của nhân viên, bao gồm số tiền và thông tin cá nhân.
-       + PrintInformation: Chứa thông tin về định dạng và các yêu cầu in ấn, như kiểu giấy, số lượng bản in.
-     - IPrintService (Giao diện dịch vụ in ấn): PayrollController tương tác với IPrintService để thực hiện yêu cầu in phiếu lương. Giao diện này giúp
-        PayrollController không cần biết chi tiết về cách PrintService thực hiện in ấn, mà chỉ cần gọi phương thức printPaycheck.
-     - PrintService (Hệ thống con dịch vụ in ấn): PrintService là hệ thống con chịu trách nhiệm xử lý yêu cầu in phiếu lương. PrintService nhận thông tin từ
-       IPrintService và thực hiện in phiếu lương dựa trên dữ liệu trong Paycheck và PrintInformation.
-     - Paycheck và PrintInformation:
-       + Paycheck là một thực thể chứa thông tin chi tiết về phiếu lương, bao gồm số tiền lương và các chi tiết liên quan đến nhân viên.
-       + PrintInformation là một thực thể chứa các yêu cầu in ấn cụ thể, chẳng hạn như định dạng in, số lượng bản in, và kiểu giấy.
+     - EmployeeApplication (EA):
+       + Đại diện cho các ứng dụng của nhân viên, tương tác với PrintService để yêu cầu in báo cáo hoặc các tài liệu liên quan đến bảng lương.
+     - PayrollControllerProcess (PC):
+       + Được triển khai trên máy chủ bảng lương, quá trình này tương tác với PrintService để in tài liệu bảng lương khi cần thiết.
+     - PrintService:
+       + Hệ thống con cung cấp các chức năng in ấn, xử lý yêu cầu in từ cả EmployeeApplication và PayrollControllerProcess.

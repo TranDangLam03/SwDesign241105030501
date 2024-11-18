@@ -1,6 +1,6 @@
 1. Subsystem context diagrams
    * Biểu đồ ngữ cảnh của BankSystem
-     
+     ![diagram](https://www.planttext.com/api/plantuml/png/j5DDImCn4BtdLmozQCKMpsKfKgiWg1GAtgVPQRkOJPRC15sqlyo3Fyc_OBQVcrgFvX3Op9itRzxCVdz-NREWbr0Q9OKOWX7QbsdDGgLIPp2cUM49j2ihPyaAmzmPuruBku37vnj0hvU5a9RWILMeNt11qBbnLdp4aOS7hCbtu5r1FDeWCqomRe8jK9Rf_STmk0MlJ-MT9kQOKiRgvzrrPALMwb3itWhvEMfAQnNxv_j3IsrgyMXvJluks9pFKMiNh3o5SaP-05FniSLBmB9v7S3OXPcXoqqIQYcS7QDG3CIxEu2HSuRGdf1tQwElzIaVRilAk9fesrnqWTROr86JmbhXHE1HTyT23-4uT0cSqAMofs766yicthtLgVAMeLd6UsJL85Fr_sloVZyz6MpWl2mg1hJvPlmR3bQ_DwxV7oPxCO30z1VmU50HNELH4gisHVRHwq52kTF0y5h8KXtJTAxw_OiEnAnjsKCYxnQVSfZLAettUgSaxH9OgMkoUVD3_m000F__0m00)
    * Giải thích
      - PayrollController:
        + Đóng vai trò là thành phần điều khiển, thực hiện chức năng chạy hệ thống trả lương (run payroll) và gửi yêu cầu tới hệ thống ngân hàng để thực hiện các
@@ -15,8 +15,8 @@
      - Paycheck và BankInformation:
        + Paycheck: Là một thực thể đại diện cho thông tin về lương của nhân viên, chứa các dữ liệu cần thiết để xử lý thanh toán.
        + BankInformation: Là thực thể chứa thông tin về tài khoản ngân hàng của người nhận.
-   * Biểu đồ ngữ cảnh của BankSystem
-     
+   * Biểu đồ ngữ cảnh của PrintSevice
+     ![diagram](https://www.planttext.com/api/plantuml/png/j5FBQiCm4BphAnPV-Y0nxTKO4vhq46WX4EXTaJUEg2ovqhh1jFco7lf9_ONAJXt7YNEi3WBjZ7PdPwMVh--98swfp1KZIGfXOQMc9TftAH0Oku8PhgL642OlZ4PD3jP6ARELEeFdbobmApQIK51faHLSlF8C8PWQJTRpqC8Jhz06yC70Bw6uSx3WLGqUaU9O70v9yaTkbiMt4XtvAqx9ulgcGNPinxfYSqrerzmBxjMIX_2yrzLHygAEjwanBvIf4ETf14loI3O2nnMtLGGpKwuKZY35j1GaZNPjx2Q21sCKSZsWx55xLwiB5jH5VUFOSFfDdqlfiBwaBdukhSCor6WvOJhpcuVzFg1sMQvSvGZp4wd7viMnQrbzoVzavU41MbIyOMzauO3hT3zVla_1pfzK62OdWu-WT7Y9sWuaEfZbMFzw_3aUmqd2LeE3hQGDQvC4Ts5u6y00t-sDmXHMLKU_hxd9mB-8G5XijB09whJ-fxy0003__mC0)
    * Giải thích
      - PayrollController:
        + Là thành phần điều khiển bảng lương, nó gửi yêu cầu đến IPrintService để in tài liệu bảng lương (paycheck) cho nhân viên nếu phương thức thanh toán là
@@ -31,7 +31,7 @@
      - Document:
        + Là thực thể đại diện cho tài liệu cần in, có thể là bảng lương hoặc báo cáo tùy theo yêu cầu từ PayrollController hoặc EmployeeApplication.
    * Biểu đồ ngữ cảnh của ProjectManagementDatabase
-     
+     ![diagram](https://www.planttext.com/api/plantuml/png/j9EnJiCm48PtFyMDHA8la05LfKXqG49YOBuwHmXrxCXt6Ih4ap7qaVeAjOEfqZHf9IIy9F9zvyl_HTv_x-OiwAMjZP9A304yU_T1MfxGOaarMLcYu1gPb58GbZR8F4t1PqV5LP8aB1Plg6wCsnAjYXnUn5Usp7Be0SU-jYbGA5KUNUjvfFSMcX-Wl_KUuLVdDnGsbwvT6mep5iuPGjkT_zNBy90EFOyr0lrMJYtWrZjZxfsL-2H_cdxGsrd8BiNCqZUcAPKLyc-e2LRNVF_5zVzvZWdEtSncTqUTEQ3Mn4ny1GpL67U2clQY1l87qq4ywWsFKkazGE4VLwLbTK5_hs7ioip95l5ogGC0003__mC0)
    * Giải thích
      - PayrollController:
        + Thành phần này đại diện cho bộ điều khiển bảng lương và tương tác với ProjectManagementDatabase để lấy dữ liệu dự án. Thông tin này cần thiết để đảm bảo

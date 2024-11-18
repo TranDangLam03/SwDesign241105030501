@@ -51,6 +51,7 @@
        + Là thực thể đại diện cho thông tin dự án, chứa các chi tiết cần thiết về mã dự án, tên dự án, và các thông tin liên quan khác. Dữ liệu này được trả về qua
        IProjectManagementDatabase cho các thành phần yêu cầu như PayrollController và EmployeeApplication.
 2. Analysis class to design element map
+
 |Analysis Class|Analysis Class|
 |--------------|--------------|
 |Employee|EmployeeEntity|
@@ -61,7 +62,9 @@
 |TimecardRepository|TimecardDataAccess|
 |PaymentRepository|PaymentDataAccess|
 |ReportGenerator|ReportGeneratorComponent|
+
 3. Design element to owning package map
+
 |Design Element|Owning Package|
 |--------------|--------------|
 |EmployeeEntity|Data Access::Employee Management|
@@ -75,5 +78,6 @@
 |PayrollUI|Presentation::Payroll|
 |SalaryCalculator|BusinessLogic::Payroll|
 |PayrollReportGenerator|Presentation::Report::Payroll|
+
 4. Architectural layers and their dependencies
 ![diagram](https://www.planttext.com/api/plantuml/png/T9D1JiCm44NtFiKe-rw01IeA1NLHgIgK_SWPg8LZH_PKA4ASZ0L7uWhO96dSECdEUVFdPxudlzy_Qy_e-5nhqQ1ynpU2uaNHHm6V0i8ZDNeFUsoTrVgu5LzYh2kjuVYQt6prtbb9tbkNe0Crrl4Z6NB8L-G9DRgsH2tF-X-bJlV827SojhkssjIDjYrHBEXu0fzLJH9TDGl3HzPaE66fuSvMf1UyDeOLjnEVClXaeFVO4P_iG8FB9KrOhMwpjE06YgCd1rl38IN9off2P5LHcayVnG_4ydHXeSshNT3d0OtwWK642_eimr7U8-XczmiD9kiGvVs1UhQadAvBb0udwgYY89w9A4skkvGexc4txKmmGrxZHMUgF8uaf7G9CkMQJ1L_mJy0003__mC0)

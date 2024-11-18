@@ -2,34 +2,120 @@
    * Biểu đồ ngữ cảnh của BankSystem
      ![diagram](https://www.planttext.com/api/plantuml/png/j5DDImCn4BtdLmozQCKMpsKfKgiWg1GAtgVPQRkOJPRC15sqlyo3Fyc_OBQVcrgFvX3Op9itRzxCVdz-NREWbr0Q9OKOWX7QbsdDGgLIPp2cUM49j2ihPyaAmzmPuruBku37vnj0hvU5a9RWILMeNt11qBbnLdp4aOS7hCbtu5r1FDeWCqomRe8jK9Rf_STmk0MlJ-MT9kQOKiRgvzrrPALMwb3itWhvEMfAQnNxv_j3IsrgyMXvJluks9pFKMiNh3o5SaP-05FniSLBmB9v7S3OXPcXoqqIQYcS7QDG3CIxEu2HSuRGdf1tQwElzIaVRilAk9fesrnqWTROr86JmbhXHE1HTyT23-4uT0cSqAMofs766yicthtLgVAMeLd6UsJL85Fr_sloVZyz6MpWl2mg1hJvPlmR3bQ_DwxV7oPxCO30z1VmU50HNELH4gisHVRHwq52kTF0y5h8KXtJTAxw_OiEnAnjsKCYxnQVSfZLAettUgSaxH9OgMkoUVD3_m000F__0m00)
    * Giải thích
-     - PayrollController:
-       + Đóng vai trò là thành phần điều khiển, thực hiện chức năng chạy hệ thống trả lương (run payroll) và gửi yêu cầu tới hệ thống ngân hàng để thực hiện các
-         khoản thanh toán.
-       + Tương tác với IBankSystem qua phương thức deposit, trong đó hệ thống gửi thông tin lương (Paycheck) đến ngân hàng đích (BankInformation).
-     - IBankSystem:
-       + Là một interface (giao diện) đại diện cho các dịch vụ ngân hàng, cung cấp phương thức deposit, được sử dụng để xử lý việc gửi tiền vào tài khoản ngân hàng.
-       + IBankSystem định nghĩa phương thức deposit với các tham số là thông tin tiền lương (Paycheck) và thông tin ngân hàng (BankInformation).
-     - BankSystem:
-       + Được xác định là một proxy của hệ thống con, thay mặt cho IBankSystem, nó triển khai phương thức deposit để thực hiện các thao tác gửi tiền thực tế.
-       + BankSystem liên kết đến các thực thể Paycheck và BankInformation, xử lý thông tin cần thiết để thực hiện các giao dịch.
-     - Paycheck và BankInformation:
-       + Paycheck: Là một thực thể đại diện cho thông tin về lương của nhân viên, chứa các dữ liệu cần thiết để xử lý thanh toán.
-       + BankInformation: Là thực thể chứa thông tin về tài khoản ngân hàng của người nhận.
+1. PayrollSystem
+* Vai trò: Đây là hệ thống xử lý lương của nhân viên, chịu trách nhiệm khởi tạo quá trình thanh toán và gửi yêu cầu đến hệ thống ngân hàng để thực hiện giao dịch.
+* Mối quan hệ:
+  - Tương tác với EmployeePayment: PayrollSystem xử lý dữ liệu lương của nhân viên (như số tài khoản, số tiền, ngày giao dịch) để gửi cho hệ thống ngân hàng.
+  - Gửi yêu cầu qua PayrollController: PayrollSystem sử dụng lớp điều khiển (PayrollController) để quản lý luồng công việc và giao tiếp với các hệ thống bên ngoài, như BankSystem.
+2. Controller Layer
+Thành phần: PayrollController
+* Vai trò:
+  - Là lớp điều khiển của PayrollSystem, chịu trách nhiệm giao tiếp giữa PayrollSystem và BankSystem.
+  - Kiểm tra dữ liệu đầu vào từ EmployeePayment và gửi yêu cầu thực hiện thanh toán đến IBankSystem.
+* Chức năng chính:
+  - Phương thức processPayment(): Xử lý yêu cầu thanh toán từ PayrollSystem. Ví dụ:
+    + Lấy dữ liệu từ EmployeePayment (bao gồm số tài khoản, số tiền, ngày giao dịch).
+    + Gửi yêu cầu đến BankSystem thông qua giao diện IBankSystem.
+  - Cập nhật trạng thái: Sau khi giao dịch thành công hoặc thất bại, PayrollController cập nhật trạng thái (status) của dữ liệu thanh toán trong EmployeePayment.
+* Mối quan hệ:
+  - Sử dụng IBankSystem: PayrollController gọi phương thức của IBankSystem để thực hiện giao dịch tài chính.
+3. Entity Layer
+Thành phần: EmployeePayment
+* Vai trò:
+  - Đây là lớp dữ liệu (entity) lưu trữ thông tin thanh toán cho từng nhân viên.
+  - Đóng vai trò là trung gian truyền dữ liệu giữa PayrollSystem và PayrollController.
+* Các thuộc tính:
+  - accountNumber: String: Số tài khoản nhận tiền.
+  - amount: Double: Số tiền cần thanh toán.
+  - transactionDate: Date: Ngày thực hiện giao dịch.
+  - status: String: Trạng thái của giao dịch (ví dụ: "Pending", "Success", "Failed").
+* Mối quan hệ:
+  - Được xử lý bởi PayrollController: Dữ liệu trong EmployeePayment được PayrollController sử dụng để khởi tạo giao dịch thanh toán.
+  - Truyền dữ liệu qua hệ thống: Sau khi giao dịch hoàn tất, trạng thái (status) được cập nhật trong EmployeePayment.
+4. Interface Layer
+Thành phần: IBankSystem
+* Vai trò:
+  - Đây là giao diện trung gian giữa PayrollSystem và BankSystem, định nghĩa các phương thức mà PayrollSystem có thể sử dụng.
+  - Giúp PayrollSystem tương tác với BankSystem mà không cần biết chi tiết thực hiện bên trong.
+* Chức năng chính:
+  - Phương thức transferFunds(accountNumber: String, amount: Double, transactionDate: Date): Boolean:
+    + accountNumber: Số tài khoản mà tiền sẽ được chuyển vào.
+    + amount: Số tiền cần chuyển.
+    + transactionDate: Ngày thực hiện giao dịch.
+    + Trả về giá trị Boolean để xác nhận giao dịch thành công hay thất bại.
+* Mối quan hệ:
+  - Được PayrollController sử dụng: Lớp điều khiển gọi IBankSystem để yêu cầu chuyển khoản.
+  - Tương tác với Subsystem Proxy: Gửi yêu cầu từ PayrollSystem đến BankSystem thực tế thông qua lớp proxy.
+5. Subsystem Proxy
+Thành phần: BankSystem
+* Vai trò:
+  - Đây là thành phần bên trong hệ thống ngân hàng, chịu trách nhiệm thực hiện chi tiết các giao dịch tài chính.
+  - Đóng vai trò như một proxy (đại diện) để xử lý logic thực tế.
+* Chức năng chính:
+  - Thực hiện các yêu cầu từ IBankSystem, như:
+    + Xử lý giao dịch chuyển tiền.
+    + Đảm bảo các giao dịch tuân thủ quy định ngân hàng (xác minh số tài khoản, kiểm tra đủ tiền trong tài khoản, v.v.).
+* Mối quan hệ:
+  - Nhận yêu cầu từ IBankSystem: Proxy thực hiện các giao dịch thực tế sau khi nhận yêu cầu từ giao diện.
+  - Trả kết quả cho IBankSystem: Sau khi giao dịch hoàn thành, proxy gửi phản hồi về kết quả (thành công/thất bại) đến PayrollController thông qua IBankSystem.
+
    * Biểu đồ ngữ cảnh của PrintSevice
      ![diagram](https://www.planttext.com/api/plantuml/png/j5FBQiCm4BphAnPV-Y0nxTKO4vhq46WX4EXTaJUEg2ovqhh1jFco7lf9_ONAJXt7YNEi3WBjZ7PdPwMVh--98swfp1KZIGfXOQMc9TftAH0Oku8PhgL642OlZ4PD3jP6ARELEeFdbobmApQIK51faHLSlF8C8PWQJTRpqC8Jhz06yC70Bw6uSx3WLGqUaU9O70v9yaTkbiMt4XtvAqx9ulgcGNPinxfYSqrerzmBxjMIX_2yrzLHygAEjwanBvIf4ETf14loI3O2nnMtLGGpKwuKZY35j1GaZNPjx2Q21sCKSZsWx55xLwiB5jH5VUFOSFfDdqlfiBwaBdukhSCor6WvOJhpcuVzFg1sMQvSvGZp4wd7viMnQrbzoVzavU41MbIyOMzauO3hT3zVla_1pfzK62OdWu-WT7Y9sWuaEfZbMFzw_3aUmqd2LeE3hQGDQvC4Ts5u6y00t-sDmXHMLKU_hxd9mB-8G5XijB09whJ-fxy0003__mC0)
    * Giải thích
-     - PayrollController:
-       + Là thành phần điều khiển bảng lương, nó gửi yêu cầu đến IPrintService để in tài liệu bảng lương (paycheck) cho nhân viên nếu phương thức thanh toán là
-         nhận trực tiếp hoặc qua thư.
-     - EmployeeApplication:
-       + Là ứng dụng của nhân viên, nơi nhân viên có thể yêu cầu in các báo cáo như số giờ làm việc hoặc các thông tin khác liên quan.
-     - IPrintService:
-       + Là một giao diện đại diện cho các dịch vụ in, định nghĩa phương thức print, nhận đối số là một tài liệu (document) để in.
-       + IPrintService thực hiện vai trò kết nối giữa các thành phần và hệ thống con PrintService, giống như cách IBankSystem kết nối với BankSystem.
-     - PrintService:
-       + Là hệ thống con thực tế thực hiện các lệnh in ấn. PrintService nhận tài liệu và thực hiện quy trình in tương ứng.
-     - Document:
-       + Là thực thể đại diện cho tài liệu cần in, có thể là bảng lương hoặc báo cáo tùy theo yêu cầu từ PayrollController hoặc EmployeeApplication.
+1. Controller Layer
+Thành phần: PayrollController
+* Vai trò:
+  - Điều phối quá trình tạo phiếu lương và gửi yêu cầu in.
+  - Tương tác giữa PayrollSystem và các dịch vụ liên quan (PrintService).
+* Chức năng chính:
+  - Phương thức requestPayslip():
+    + Nhận yêu cầu từ PayrollSystem để tạo phiếu lương cho nhân viên.
+    + Trích xuất dữ liệu như employeeId, salary, và deductions từ hệ thống nguồn (PayrollSystem).
+    + Tạo đối tượng Payslip và gửi yêu cầu in phiếu qua IPrintService.
+* Mối quan hệ:
+  - Tạo Payslip: PayrollController khởi tạo các phiếu lương mới dựa trên dữ liệu đầu vào.
+  - Sử dụng IPrintService: Gửi yêu cầu in phiếu qua giao diện định nghĩa.
+2. Entity Layer
+Thành phần: Payslip
+* Vai trò:
+  - Lưu trữ thông tin của từng phiếu lương.
+  - Là thành phần trung gian chứa dữ liệu để gửi đến dịch vụ in.
+* Các thuộc tính:
+  - employeeId: String: Mã định danh của nhân viên.
+  - salary: Double: Tổng lương của nhân viên.
+  - deductions: Double: Các khoản khấu trừ.
+  - generatedDate: Date: Ngày tạo phiếu lương.
+* Mối quan hệ:
+  - Được PayrollController tạo ra: Khi có yêu cầu từ PayrollSystem, đối tượng Payslip được tạo và sử dụng để in.
+  - Là đầu vào cho IPrintService: Payslip chứa dữ liệu cần thiết để in.
+3. Interface Layer
+Thành phần: IPrintService
+* Vai trò:
+  - Là giao diện trung gian giữa PayrollController và Subsystem (PrintService).
+  - Định nghĩa các phương thức mà PayrollSystem có thể sử dụng để in phiếu lương.
+* Chức năng chính:
+  - Phương thức printPayslip(employeeId: String, salary: Double, deductions: Double): Boolean:
+  - Tham số:
+  + employeeId: Mã nhân viên cần in phiếu.
+  + salary: Tổng lương của nhân viên.
+  + deductions: Các khoản khấu trừ.
+  - Kết quả: Trả về giá trị Boolean để xác nhận in thành công hoặc thất bại.
+* Mối quan hệ:
+  - Nhận yêu cầu từ PayrollController: Giao diện này nhận yêu cầu in từ lớp điều khiển.
+  - Tương tác với Subsystem: Chuyển tiếp yêu cầu đến lớp Subsystem để thực hiện in thực tế.
+4. Subsystem
+Thành phần: PrintService
+* Vai trò:
+  - Thực hiện chi tiết quá trình in phiếu lương, như gửi dữ liệu đến máy in hoặc lưu trữ phiếu lương dưới dạng file.
+  - Đóng vai trò là thành phần "thực hiện" của hệ thống.
+* Chức năng chính:
+  - Phương thức printPayslip(employeeId: String, salary: Double, deductions: Double): Boolean:
+  + Nhận dữ liệu từ IPrintService.
+  + Thực hiện in thực tế (ví dụ: gửi lệnh in, lưu file PDF, hoặc ghi log).
+  + Trả về kết quả thành công/thất bại cho giao diện.
+* Mối quan hệ:
+  - Nhận yêu cầu từ IPrintService: Subsystem thực hiện logic chi tiết dựa trên yêu cầu từ giao diện.
+
    * Biểu đồ ngữ cảnh của ProjectManagementDatabase
      ![diagram](https://www.planttext.com/api/plantuml/png/j9EnJiCm48PtFyMDHA8la05LfKXqG49YOBuwHmXrxCXt6Ih4ap7qaVeAjOEfqZHf9IIy9F9zvyl_HTv_x-OiwAMjZP9A304yU_T1MfxGOaarMLcYu1gPb58GbZR8F4t1PqV5LP8aB1Plg6wCsnAjYXnUn5Usp7Be0SU-jYbGA5KUNUjvfFSMcX-Wl_KUuLVdDnGsbwvT6mep5iuPGjkT_zNBy90EFOyr0lrMJYtWrZjZxfsL-2H_cdxGsrd8BiNCqZUcAPKLyc-e2LRNVF_5zVzvZWdEtSncTqUTEQ3Mn4ny1GpL67U2clQY1l87qq4ywWsFKkazGE4VLwLbTK5_hs7ioip95l5ogGC0003__mC0)
    * Giải thích
